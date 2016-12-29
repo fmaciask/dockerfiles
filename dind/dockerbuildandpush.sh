@@ -48,4 +48,5 @@ case "$3" in
         exit 1
 esac
 getImgName
+buildImage
 exit 0
