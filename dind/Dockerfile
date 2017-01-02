@@ -25,12 +25,9 @@ VOLUME /data
 # This image will contain a docker build sh script.
 ADD dockerbuildandpush.sh /data/dockerbuildandpush.sh
 
-#RUN git clone https://github.com/fmaciask/game-of-life.git /data/gol
-
 # Health check
 HEALTHCHECK --interval=5s --timeout=3s CMD curl --fail http://localhost:8091/pools || exit 1
 
 # Define additional metadata for our image.
 VOLUME /var/lib/docker
 CMD ["wrapdocker"]
-#CMD ["/data/dockerbuildandpush.sh"]
