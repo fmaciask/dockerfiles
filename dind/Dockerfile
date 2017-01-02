@@ -13,17 +13,19 @@ RUN apk --update add \
   docker \
   && chmod +x /usr/local/bin/wrapdocker \
   && rm -rf /var/cache/apk/* \
-  && mkdir /data
+  && mkdir /data \
+  && git clone https://github.com/fmaciask/game-of-life.git /data/gol
 
 
 # VOLUME where it saves a script
 VOLUME /data
 # This image will contain a docker build sh script.
 ADD dockerbuildandpush.sh /data/dockerbuildandpush.sh
+RUN cd /data/gol && docker build . --tag my-maven && docker run -it --name my-maven-script my-maven
 
 # Cloning GIT repository
 # The first test will be 
-RUN git clone https://github.com/fmaciask/game-of-life.git /data
+#RUN git clone https://github.com/fmaciask/game-of-life.git /data/gol
 
 # Health check
 HEALTHCHECK --interval=5s --timeout=3s CMD curl --fail http://localhost:8091/pools || exit 1
