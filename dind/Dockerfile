@@ -15,6 +15,7 @@ RUN apk --update add \
   && rm -rf /var/cache/apk/* \
   && mkdir /data
 
+
 # VOLUME where it saves a script
 VOLUME /data
 # This image will contain a docker build sh script.
