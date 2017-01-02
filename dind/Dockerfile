@@ -12,7 +12,17 @@ RUN apk --update add \
   e2fsprogs \
   docker \
   && chmod +x /usr/local/bin/wrapdocker \
-  && rm -rf /var/cache/apk/*
+  && rm -rf /var/cache/apk/* \
+  && mkdir /data
+
+# VOLUME where it saves a script
+VOLUME /data
+# This image will contain a docker build sh script.
+ADD dockerbuildandpush.sh /data/dockerbuildandpush.sh
+
+# Cloning GIT repository
+# The first test will be 
+RUN git clone https://github.com/fmaciask/game-of-life.git /data
 
 # Define additional metadata for our image.
 VOLUME /var/lib/docker
