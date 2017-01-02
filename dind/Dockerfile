@@ -4,6 +4,9 @@ MAINTAINER forlidar@gmail.com
 # Install the magic wrapper.
 ADD ./wrapdocker /usr/local/bin/wrapdocker
 
+# Directory where app is stored
+VOLUME /app
+
 # Install Docker and dependencies
 RUN apk --update add \
   bash \
@@ -13,18 +16,15 @@ RUN apk --update add \
   docker \
   && chmod +x /usr/local/bin/wrapdocker \
   && rm -rf /var/cache/apk/* \
-  && mkdir /data \
-  && git clone https://github.com/fmaciask/game-of-life.git /data/gol
+  && mkdir /data 
+#  && git clone https://github.com/fmaciask/game-of-life.git /data/gol
 
 
 # VOLUME where it saves a script
 VOLUME /data
 # This image will contain a docker build sh script.
 ADD dockerbuildandpush.sh /data/dockerbuildandpush.sh
-RUN cd /data/gol && docker build . --tag my-maven && docker run -it --name my-maven-script my-maven
 
-# Cloning GIT repository
-# The first test will be 
 #RUN git clone https://github.com/fmaciask/game-of-life.git /data/gol
 
 # Health check
@@ -33,3 +33,4 @@ HEALTHCHECK --interval=5s --timeout=3s CMD curl --fail http://localhost:8091/poo
 # Define additional metadata for our image.
 VOLUME /var/lib/docker
 CMD ["wrapdocker"]
+#CMD ["/data/dockerbuildandpush.sh"]
