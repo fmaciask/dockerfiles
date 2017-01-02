@@ -25,6 +25,9 @@ ADD dockerbuildandpush.sh /data/dockerbuildandpush.sh
 # The first test will be 
 RUN git clone https://github.com/fmaciask/game-of-life.git /data
 
+# Health check
+HEALTHCHECK --interval=5s --timeout=3s CMD curl --fail http://localhost:8091/pools || exit 1
+
 # Define additional metadata for our image.
 VOLUME /var/lib/docker
 CMD ["wrapdocker"]
