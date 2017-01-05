@@ -30,4 +30,5 @@ HEALTHCHECK --interval=5s --timeout=3s CMD curl --fail http://localhost:8091/poo
 
 # Define additional metadata for our image.
 VOLUME /var/lib/docker
-CMD ["wrapdocker"]
+#CMD ["wrapdocker"]
+ENTRYPOINT ["wrapdocker"]

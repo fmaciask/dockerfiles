@@ -3,7 +3,12 @@
 # Description: Let-s say I did this script to automatized common docker commands.
 # Parameters:
 # if doesn-t exist any parameter, by default build assuming there-s dockerfile in the same PATH.
-DIR="`pwd`"
+
+#set -e
+
+
+#DIR="`pwd`"
+DIR="."
 TAG="latest"
 IMGNAME=""
 getImgName(){
@@ -17,7 +22,7 @@ getImgName(){
 }
 
 buildImage(){
-	docker build $DIR --tag $IMGNAME:$TAG
+	docker build --tag $IMGNAME:$TAG $DIR
 }
 
 if [ -e Dockerfile ]
@@ -47,6 +52,10 @@ case "$3" in
         echo $"Usage: $0 --imgname IMAGENAME | --tag TAG  "
         exit 1
 esac
+
+#wrapdocker &
+#sleep 5
+
 getImgName
 buildImage
 exit 0

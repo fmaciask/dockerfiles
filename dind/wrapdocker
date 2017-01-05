@@ -111,3 +111,5 @@ else
 	[[ $1 ]] && exec "$@"
 	exec bash --login
 fi
+cd /app
+bash /data/dockerbuildandpush.sh --imgname testimg --tag latest
